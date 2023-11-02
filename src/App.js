@@ -1,7 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import profilePic from "./assets/34p.jpg";
-import { FaHome, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { createClient } from "@supabase/supabase-js";
 import Icon from "./components/Icon";
 
@@ -13,19 +12,18 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [links, setLinks] = useState([]);
 
-  async function getLinks() {
-    setLoading(true);
-    try {
-      const { data } = await supabase.from("links").select();
-      setLinks(data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
+    async function getLinks() {
+      setLoading(true);
+      try {
+        const { data } = await supabase.from("links").select();
+        setLinks(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
     getLinks();
   }, []);
 
